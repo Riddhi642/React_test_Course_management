@@ -42,6 +42,9 @@ A MERN Stack Application:- building a Course Management application in ReactJS. 
 
 ![Show Course](./screenshot/show_course_by_id.png)
 
+### Search Feature
+![Search Feature](./screenshot/search_feature.png)
+
 ## How to Run
 
 ### Backend

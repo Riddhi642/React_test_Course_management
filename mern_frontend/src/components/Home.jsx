@@ -3,6 +3,7 @@ import { NavLink } from 'react-router-dom'
 import axios from 'axios'
 
 const Home = () => {
+    const [search, setSearch] = useState('');
     const[cor,setCor]=useState([])
     useEffect(()=>{
         axios.get('http://localhost:4000/course')
@@ -12,8 +13,18 @@ const Home = () => {
   return (
     <>
      <div className="container mt-4">
+      <input
+    type="text"
+    className="form-control mb-3"
+    placeholder="Search by Course Name or Instructor"
+    onChange={(e) => setSearch(e.target.value)}
+  />
+
   <div className="row">
-    {cor.map((c) => (
+    { cor.filter((c) =>
+        c.courseName.toLowerCase().includes(search.toLowerCase()) ||
+        c.instructor.toLowerCase().includes(search.toLowerCase())
+     ).map((c) => (
       <div className="col-md-4 mb-4" key={c._id}>
         <div className="card h-100">
           <img
