@@ -1,6 +1,6 @@
 # Course Management System
 
-A MERN Stack Application:- building a Course Management application in ReactJS. The application should allow users to add, view, edit, and delete courses, including a thumbnail image for each course. a.
+A MERN Stack Application:- building a Course Management application in ReactJS. The application should allow users to add, view, edit, and delete courses, including a thumbnail image for each course.git add README.md
 
 ## Features
 
