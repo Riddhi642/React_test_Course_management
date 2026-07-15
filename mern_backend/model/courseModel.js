@@ -1,26 +1,50 @@
-//  id (number)
-//  courseName (string)
-//  instructor (string)
-//  category (string)
-//  duration (number – in hours)
-//  level (string – Beginner / Intermediate / Advanced)
-//  thumbnail (file or image URL preview)
-
 const mongoose = require('mongoose');
 
-const courseSchema=new mongoose.Schema({
+
+const courseSchema = new mongoose.Schema({
+
     id:Number,
-    courseName:String,
-    instructor:String,
-    category:String,
-    duration:Number,
-    level:String,
-    thumbnail:String
 
-},{
+    courseName:{
+        type:String,
+        required:true
+    },
+
+    instructor:{
+        type:String,
+        required:true
+    },
+
+    category:{
+        type:String,
+        required:true
+    },
+
+    duration:{
+        type:Number,
+        required:true
+    },
+
+    level:{
+        type:String,
+        required:true
+    },
+
+    thumbnail:{
+        type:String,
+        required:true
+    }
+
+},
+{
     timestamps:true
-})
+});
 
-const courseModel= mongoose.model('course',courseSchema)
 
-module.exports=courseModel
+const courseModel = mongoose.model(
+    "course",
+    courseSchema
+);
+
+
+module.exports = courseModel;

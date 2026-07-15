@@ -1,42 +1,164 @@
-// add, view, edit, and delete courses,
 const courseModel = require('../model/courseModel');
 
-exports.addCourse=async (req,resp) => {
-    const new_course= new courseModel(req.body)
-    const result= await new_course.save()
-    resp.status(200).json(result)
-}
 
-exports.showCourses= async (req,resp) => {
-    const course= await courseModel.find()
-    if (course!=null) {
-        resp.status(200).json(course)
-    } else {
-        resp.status(404).json({message:'Courses not found'})
+// ADD COURSE
 
-    }
-}
+exports.addCourse = async(req,res)=>{
 
-exports.showCourse =async (req,resp) => {
-    const course=await courseModel.findById(req.params.id)
-    if (course!=null) {
-        resp.status(200).json(course)
-    } else {
-        resp.status(404).json({message:'Course not found'})
+    try{
+
+        const new_course = new courseModel(req.body);
+
+        const result = await new_course.save();
+
+        res.status(200).json(result);
 
     }
-}
+    catch(err){
 
-exports.updateCourse= async (req,resp) => {
-    const course=await courseModel.findByIdAndUpdate(req.params.id,req.body)
-    resp.status(200).json({message:'Course Updated Successfully...'})
-}
+        console.log(err);
 
-exports.deleteCourse=async (req,resp) => {
-    const course=await courseModel.findByIdAndDelete(req.params.id)
-    if (course!=null) {
-        resp.status(200).json({message:'Course Deleted'})
-    } else {
-        resp.status(404).json({message:'Course not Found...'})
+        res.status(500).json({
+            message:err.message
+        });
+
     }
-}
+
+};
+
+
+
+// SHOW ALL COURSES
+
+exports.showCourses = async(req,res)=>{
+
+    try{
+
+        const course = await courseModel.find();
+
+        res.status(200).json(course);
+
+    }
+    catch(err){
+
+        console.log(err);
+
+        res.status(500).json({
+            message:err.message
+        });
+
+    }
+
+};
+
+
+
+// SHOW SINGLE COURSE
+
+exports.showCourse = async(req,res)=>{
+
+    try{
+
+        const course = await courseModel.findById(req.params.id);
+
+
+        if(course){
+
+            res.status(200).json(course);
+
+        }
+        else{
+
+            res.status(404).json({
+                message:"Course not found"
+            });
+
+        }
+
+
+    }
+    catch(err){
+
+        console.log(err);
+
+        res.status(500).json({
+            message:err.message
+        });
+
+    }
+
+};
+
+
+
+// UPDATE COURSE
+
+exports.updateCourse = async(req,res)=>{
+
+    try{
+
+        await courseModel.findByIdAndUpdate(
+            req.params.id,
+            req.body
+        );
+
+
+        res.status(200).json({
+            message:"Course Updated Successfully"
+        });
+
+
+    }
+    catch(err){
+
+        console.log(err);
+
+        res.status(500).json({
+            message:err.message
+        });
+
+    }
+
+};
+
+
+
+// DELETE COURSE
+
+exports.deleteCourse = async(req,res)=>{
+
+    try{
+
+        const course = await courseModel.findByIdAndDelete(
+            req.params.id
+        );
+
+
+        if(course){
+
+            res.status(200).json({
+                message:"Course Deleted"
+            });
+
+        }
+        else{
+
+            res.status(404).json({
+                message:"Course not found"
+            });
+
+        }
+
+
+    }
+    catch(err){
+
+        console.log(err);
+
+        res.status(500).json({
+            message:err.message
+        });
+
+    }
+
+};
